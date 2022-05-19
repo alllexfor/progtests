@@ -15,10 +15,6 @@ class LanguageAdmin(admin.ModelAdmin):
         else:
             return 'No photo'
 
-class LevelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
-    list_display_links = ('id', 'name')
-
 class WrongAnswersAdmin(admin.ModelAdmin):
     list_display = ('id', 'wrong_answer')
     list_display_links = ('id', 'wrong_answer')
@@ -34,7 +30,6 @@ class ResultAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Language, LanguageAdmin)
-admin.site.register(Level, LevelAdmin)
 admin.site.register(WrongAnswers, WrongAnswersAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Result, ResultAdmin)

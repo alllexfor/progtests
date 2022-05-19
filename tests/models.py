@@ -4,13 +4,25 @@ from django.contrib.auth.models import User
 
 
 class Language(models.Model):
-    """ Модель для языков программирования. """
+    """ Модель для языков (фрамеворков) программирования. """
+
+    CHOICES_LEVEL = (
+        ('junior', 'Junior'),
+        ('middle', 'Middle'),
+        ('senior', 'Senior')
+    )
+    CHOICES_TYPE = (
+        ('backend', 'Backend'), 
+        ('frontend', 'Frontend')
+    )
+
     name = models.CharField('Имя языка', max_length=100)
     about = models.TextField('Описание')
-    image = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name="Фото")
+    image = models.ImageField(upload_to="photos/%Y/%m/%d/",
+                              verbose_name="Фото")
 
-    level = models.ForeignKey(
-        'Level', on_delete=models.CASCADE, verbose_name='Уровен')
+    level = models.CharField('Уровень', max_length=255, choices=CHOICES_LEVEL)
+    type_of = models.CharField('Типь', max_length=255, choices=CHOICES_TYPE)
 
     def __str__(self):
         return f'{self.name} - {self.level}'
@@ -18,18 +30,6 @@ class Language(models.Model):
     class Meta:
         verbose_name = 'Язык программирования'
         verbose_name_plural = 'Языки программирования'
-
-
-class Level(models.Model):
-    """ Модель для уровня программирования. """
-    name = models.CharField('Уровен', max_length=100)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Уровен программирования'
-        verbose_name_plural = 'Уровни программирования'
 
 
 class WrongAnswers(models.Model):
@@ -48,11 +48,12 @@ class Question(models.Model):
     """ Модель для вопроса. """
     question = models.CharField('Вопрос', max_length=255)
     right_answer = models.CharField('Правильный ответ', max_length=255)
-    wrong_answers = models.ManyToManyField(
-        WrongAnswers, verbose_name='Неправильные ответы')
+    wrong_answers = models.ManyToManyField(WrongAnswers,
+                                           verbose_name='Неправильные ответы')
 
-    language = models.ForeignKey(
-        Language, on_delete=models.CASCADE, verbose_name='Язык программирования')
+    language = models.ForeignKey(Language,
+                                 on_delete=models.CASCADE,
+                                 verbose_name='Язык программирования')
 
     def __str__(self):
         return self.question
@@ -66,10 +67,14 @@ class Result(models.Model):
     """ Модель для результата пользователей. """
     right_answers = models.PositiveSmallIntegerField('Результат')
     duration = models.DurationField('Продолжительность')
-    data = models.DateTimeField('Дата ',auto_now_add=True)
+    data = models.DateTimeField('Дата ', auto_now_add=True)
 
-    language = models.ForeignKey(Language, on_delete=models.CASCADE, verbose_name='Язык')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользовател')
+    language = models.ForeignKey(Language,
+                                 on_delete=models.CASCADE,
+                                 verbose_name='Язык')
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             verbose_name='Пользовател')
 
     def __str__(self):
         return f'{self.user}` ответил на {self.right_answers} правильных вопросов'

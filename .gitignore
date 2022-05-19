@@ -30,6 +30,8 @@ venv/
 !.vscode/extensions.json 
 .history
 
-
+.vscode/
 __pycache__/
 migrations/
+
+frontend/

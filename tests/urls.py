@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import hello
+from .views import Languages
 
 urlpatterns = [
-    path('', hello),
+    path('', Languages.as_view()),
 ]
