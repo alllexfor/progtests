@@ -16,13 +16,13 @@ class Language(models.Model):
         ('frontend', 'Frontend')
     )
 
-    name = models.CharField('Имя языка', max_length=100)
+    name = models.CharField('Наименование языка', max_length=100)
     about = models.TextField('Описание')
     image = models.ImageField(upload_to="photos/%Y/%m/%d/",
                               verbose_name="Фото")
 
     level = models.CharField('Уровень', max_length=255, choices=CHOICES_LEVEL)
-    type_of = models.CharField('Типь', max_length=255, choices=CHOICES_TYPE, blank=True, null=True)
+    type_of = models.CharField('Тип', max_length=255, choices=CHOICES_TYPE, blank=True, null=True)
 
     def __str__(self):
         return f'{self.name} - {self.level}'

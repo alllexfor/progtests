@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import Languages
+from .views import *
 
 urlpatterns = [
-    path('langauges/', Languages.as_view()),
+    path('languages/', Languages.as_view()),
+    path('languages/choices/', LanguagesChoices.as_view()),
 ]
