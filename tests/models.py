@@ -22,7 +22,7 @@ class Language(models.Model):
                               verbose_name="Фото")
 
     level = models.CharField('Уровень', max_length=255, choices=CHOICES_LEVEL)
-    type_of = models.CharField('Типь', max_length=255, choices=CHOICES_TYPE)
+    type_of = models.CharField('Типь', max_length=255, choices=CHOICES_TYPE, blank=True, null=True)
 
     def __str__(self):
         return f'{self.name} - {self.level}'
