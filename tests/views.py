@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from rest_framework.generics import GenericAPIView, RetrieveAPIView
+from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework import response, status
 from .models import Language
 from .serializers import LanguageSerializer, RegisterSerializer
